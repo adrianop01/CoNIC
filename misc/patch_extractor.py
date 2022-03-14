@@ -171,7 +171,7 @@ class PatchExtractor(object):
 
 if __name__ == "__main__":
     # example for debug
-    xtractor = PatchExtractor((256, 256), (128, 128), debug=True)
+    xtractor = PatchExtractor(256, 128, debug=True)
     a = np.full([1200, 1200, 3], 255, np.uint8)
     xtractor.extract(a, "mirror")
     xtractor.extract(a, "valid")

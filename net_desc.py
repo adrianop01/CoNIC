@@ -22,7 +22,7 @@ class ResNetExt(ResNet):
             x = self.conv1(x)
             x = self.bn1(x)
             x = self.relu(x)
-            with torch.set_grad_enabled(not freeze):
+            with torch.set_grad_enabled(not freeze): 
                 x1 = x = self.layer1(x)
                 x2 = x = self.layer2(x)
                 x3 = x = self.layer3(x)
@@ -37,12 +37,12 @@ class ResNetExt(ResNet):
             x4 = x = self.layer4(x)
         return x1, x2, x3, x4
 
-    def forward(self, x: torch.Tensor, freeze: bool = False) -> torch.Tensor:
+    def forward(self, x: torch.Tensor, freeze: bool = False) -> torch.Tensor: #freeze: exclude 4 res layers from training
         return self._forward_impl(x, freeze)
 
     @staticmethod
     def resnet50(num_input_channels, pretrained=None):
-        model = ResNetExt(ResNetBottleneck, [3, 4, 6, 3])
+        model = ResNetExt(ResNetBottleneck, [3, 4, 6, 3]) #call ResNet __init__
         model.conv1 = nn.Conv2d(
             num_input_channels, 64, 7, stride=1, padding=3)
         if pretrained is not None:
@@ -70,7 +70,7 @@ class DenseBlock(nn.Module):
 
         self.nr_unit = unit_count
         self.in_ch = in_ch
-        self.unit_ch = unit_ch
+        self.unit_ch = unit_ch #default unit_ch[0] = 128, unit_ch[1] =32
 
         # ! For inference only so init values for batchnorm may not match tensorflow
         unit_in_ch = in_ch
